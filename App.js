@@ -11,6 +11,7 @@ import {
   StatusBar,
   RefreshControl,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import Home from "./home/Index";
 import { useState } from "react";
@@ -266,6 +267,9 @@ function App() {
       >
         {/* when you want a hidden or control statusbar use StatusBar */}
         <StatusBar hidden={true} />
+
+        {/* spiner */}
+        <ActivityIndicator size="large" color="white" />
 
         <FlatList
           //for scroll x

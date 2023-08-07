@@ -10,13 +10,14 @@ function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "blue",
+    backgroundColor: "green",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
     color: "white",
+    fontSize: 50,
   },
 });
 

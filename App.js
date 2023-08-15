@@ -8,6 +8,8 @@ import {
   Alert,
   Modal,
   Image,
+  Button,
+  Dimensions,
 } from "react-native";
 
 function App() {
@@ -65,6 +67,13 @@ function App() {
       >
         <Text style={styles.textStyle}>Click me!</Text>
       </Pressable>
+      {/* see the scale and width & height of screen */}
+      <Button
+        title="press"
+        onPress={() => {
+          alert(JSON.stringify(Dimensions.get("screen")));
+        }}
+      />
     </View>
   );
 }

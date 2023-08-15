@@ -1,15 +1,11 @@
-import { StyleSheet, View, StatusBar, Text } from "react-native";
+import { StyleSheet, View, StatusBar, Text, Button, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permission from "expo-permissions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [imageUri, setImageUri] = useState();
   const requestPermission = async () => {
-    //give permissions with expo-permissions
-    // await Permission.askAsync(
-    //   Permission.MEDIA_LIBRARY,
-    //   Permission.LOCATION_FOREGROUND
-    // );
     //give permission with image-picker
     const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!result.granted)
@@ -20,9 +16,22 @@ function App() {
     requestPermission();
   }, []);
 
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.canceled) setImageUri(result.uri);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>تکست آزمایشی</Text>
+      <Button title="select img" onPress={selectImage} />
+      <Image
+        source={{ uri: imageUri }}
+        style={{ width: 200, height: 200, marginTop: 20 }}
+      />
     </View>
   );
 }

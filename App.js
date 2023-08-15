@@ -1,20 +1,16 @@
-import { StyleSheet, View, StatusBar } from "react-native";
-import { useDeviceOrientation } from "@react-native-community/hooks";
+import { StyleSheet, View, StatusBar, Text } from "react-native";
+import { useFonts } from "expo-font";
 
 function App() {
-  const orientation = useDeviceOrientation();
+  let [fontsLoaded] = useFonts({
+    vazir: require("./assets/fonts/Vazir.ttf"),
+  });
+
+  if (!fontsLoaded) return null;
 
   return (
     <View style={styles.container}>
-      {/* when you want a hidden or control statusbar use StatusBar */}
-      <StatusBar hidden={true} />
-      <View
-        style={{
-          height: orientation === "portrait" ? "30%" : "100%",
-          backgroundColor: "black",
-          width: "100%",
-        }}
-      ></View>
+      <Text style={styles.text}>تکست آزمایشی</Text>
     </View>
   );
 }
@@ -23,6 +19,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 25,
+    fontFamily: "vazir",
   },
 });
 

@@ -1,18 +1,28 @@
 import { StyleSheet, View, StatusBar, Text } from "react-native";
-import { useFonts } from "expo-font";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import * as ImagePicker from "expo-image-picker";
+import * as Permission from "expo-permissions";
+import { useEffect } from "react";
 
 function App() {
-  let [fontsLoaded] = useFonts({
-    vazir: require("./assets/fonts/Vazir.ttf"),
-  });
+  const requestPermission = async () => {
+    //give permissions with expo-permissions
+    // await Permission.askAsync(
+    //   Permission.MEDIA_LIBRARY,
+    //   Permission.LOCATION_FOREGROUND
+    // );
+    //give permission with image-picker
+    const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!result.granted)
+      alert("you need to enable permission to access the library");
+  };
 
-  if (!fontsLoaded) return null;
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>تکست آزمایشی</Text>
-      <Ionicons name="md-checkmark-circle" size={32} color="green" />
     </View>
   );
 }
@@ -23,10 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    fontSize: 25,
-    fontFamily: "vazir",
   },
 });
 

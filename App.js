@@ -1,37 +1,34 @@
 import { StyleSheet, View, StatusBar, Text, Button, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permission from "expo-permissions";
+import * as Location from "expo-location";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [imageUri, setImageUri] = useState();
-  const requestPermission = async () => {
-    //give permission with image-picker
-    const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!result.granted)
-      alert("you need to enable permission to access the library");
-  };
+  const [location, setLocation] = useState();
 
-  useEffect(() => {
-    requestPermission();
-  }, []);
-
-  const selectImage = async () => {
+  const getLocation = async () => {
     try {
-      const result = await ImagePicker.launchImageLibraryAsync();
-      if (!result.canceled) setImageUri(result.uri);
+      const { granted } = await Location.requestForegroundPermissionsAsync();
+      if (!granted) return;
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+      });
+      setLocation({ latitude, longitude });
     } catch (error) {
       console.log("error:", error);
     }
   };
 
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Button title="select img" onPress={selectImage} />
-      <Image
-        source={{ uri: imageUri }}
-        style={{ width: 200, height: 200, marginTop: 20 }}
-      />
+      <Text>{JSON.stringify(location)}</Text>
     </View>
   );
 }

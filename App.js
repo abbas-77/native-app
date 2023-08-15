@@ -1,22 +1,12 @@
-import { StyleSheet, View, StatusBar, Text, Button, Image } from "react-native";
-import useLocation from "./hooks/useLocation";
+import { NavigationContainer } from "@react-navigation/native";
+import StackNavigator from "./navigator/stackNavigator";
 
 function App() {
-  const location = useLocation();
   return (
-    <View style={styles.container}>
-      <Text>{JSON.stringify(location)}</Text>
-    </View>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default App;

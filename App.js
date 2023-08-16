@@ -1,12 +1,18 @@
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import DrawerNavigator from "./navigator/drawerNavigator";
+import { Text, View } from "react-native";
+import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 
 function App() {
+  const netInfo = useNetInfo();
+
   return (
-    <NavigationContainer>
-      <DrawerNavigator />
-    </NavigationContainer>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      {netInfo.type !== "unknown" && netInfo.isInternetReachable ? (
+        <Text style={{ fontSize: 30 }}>connected</Text>
+      ) : (
+        <Text style={{ fontSize: 30 }}>disconected</Text>
+      )}
+    </View>
   );
 }
 

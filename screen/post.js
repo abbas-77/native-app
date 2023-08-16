@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-function Post({ route }) {
+function Post() {
   return (
     <View style={styles.container}>
-      <Text>Post page, id: {route.params.id}</Text>
+      <Text>Post page</Text>
     </View>
   );
 }
